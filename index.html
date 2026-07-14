@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="https://cyluk.com/logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Para mi luna lunera, lo siento por ser orgullosos te amo mucho no quiero que te vayas gracias por llegar ami vida - Galaxia</title>
+    <script type="module" src="script.js"></script>
+    <meta name="author" content="Cyluk" />
+    <meta name="copyright" content="Todos los derechos reservados Cyluk - https://github.com/Cyluk-dev/Galaxia" />
+    <!-- 
+      Copyright © Todos los derechos reservados Cyluk
+      Repository: https://github.com/Cyluk-dev/Galaxia
+    -->
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      :root {
+        --color-intensity: 1;
+        --color-brightness: 1;
+        --bar-border: #00eaff;
+        --bar-glow: rgba(0, 234, 255, 0.6);
+        --bar-shadow: rgba(0, 234, 255, 0.35);
+        --bar-bg: rgba(0, 0, 0, 0.62);
+        --bar-text: #ffffff;
+        --bar-button-border: rgba(0, 234, 255, 0.8);
+        --bar-button-bg: rgba(0, 234, 255, 0.14);
+        --bar-button-color: #8ff8ff;
+        --bar-button-glow: rgba(0, 234, 255, 0.45);
+        --bar-progress-accent: #ffffff;
+        --color-panel-border: #00eaff;
+        --color-panel-shadow: rgba(0, 234, 255, 0.45);
+      }
+
+      body {
+        margin: 0;
+        background: #000;
+        color: #fff;
+        font-family: Arial, sans-serif;
+        min-height: 100vh;
+      }
+
+      #page-content {
+        position: relative;
+        z-index: 1;
+        filter: saturate(var(--color-intensity, 1)) brightness(var(--color-brightness, 1));
+        transition: filter 0.2s ease;
+      }
+
+      #color-panel {
+        position: fixed;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 99998;
+        width: 150px;
+        padding: 10px 12px;
+        border-radius: 12px 0 0 12px;
+        border: 1px solid var(--color-panel-border, #00eaff);
+        border-right: 0;
+        background: rgba(0, 0, 0, 0.78);
+        box-shadow: 0 0 10px var(--color-panel-shadow, rgba(0, 234, 255, 0.45));
+        backdrop-filter: blur(8px);
+      }
+
+      #color-panel .panel-title {
+        font-size: 12px;
+        font-weight: 700;
+        margin-bottom: 6px;
+        color: #8ff8ff;
+        letter-spacing: 0.3px;
+      }
+
+      #color-panel input[type="range"] {
+        width: 100%;
+        accent-color: #00eaff;
+        cursor: pointer;
+      }
+
+      #color-panel .value {
+        display: block;
+        margin-top: 6px;
+        font-size: 12px;
+        color: #ffffff;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="page-content">
+      <h1 style="text-align: center; margin: 24px 16px 0; color: #ffffff; font-family: Arial, sans-serif; text-shadow: 0 0 10px rgba(255,255,255,0.5);">
+        Para mi luna lunera, lo siento por ser orgullosos te amo mucho no quiero que te vayas gracias por llegar ami vida
+      </h1>
+      <div id="root"></div>
+    </div>
+
+		<audio
+			id="bg-music"
+			src="https://github.com/Baque2005/Organizador/raw/refs/heads/master/Harry%20Styles%20-%20As%20It%20Was%20(Lyrics).mp3"
+			autoplay
+			loop
+			preload="auto"
+			playsinline
+		></audio>
+
+		<div
+			id="music-bar"
+			style="
+				position: fixed;
+				bottom: 12px;
+				left: 50%;
+				transform: translateX(-50%);
+				z-index: 99999;
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				width: min(560px, calc(100vw - 24px));
+				padding: 10px 12px;
+				border-radius: 14px;
+				border: 1px solid var(--bar-border);
+				box-shadow: 0 0 10px var(--bar-glow), 0 0 24px var(--bar-shadow);
+				background: var(--bar-bg);
+				color: var(--bar-text);
+				backdrop-filter: blur(8px);
+			"
+		>
+			<button
+				id="music-toggle"
+				type="button"
+				aria-label="Pausar musica"
+				style="
+					width: 34px;
+					height: 34px;
+					border-radius: 999px;
+					border: 1px solid var(--bar-button-border);
+					background: var(--bar-button-bg);
+					color: var(--bar-button-color);
+					font-size: 16px;
+					line-height: 1;
+					cursor: pointer;
+					display: inline-flex;
+					align-items: center;
+					justify-content: center;
+					box-shadow: 0 0 8px var(--bar-button-glow);
+				"
+			>⏸</button>
+
+			<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px;">
+				<input
+					id="music-progress"
+					type="range"
+					min="0"
+					max="100"
+					step="0.1"
+					value="0"
+					aria-label="Progreso de la musica"
+					style="width: 100%; accent-color: var(--bar-progress-accent); cursor: pointer;"
+				/>
+				<div style="display: flex; justify-content: space-between; font-size: 11px; opacity: 0.8;">
+					<span id="music-current">0:00</span>
+					<span id="music-total">0:00</span>
+				</div>
+			</div>
+		</div>
+
+    <script>
+      (() => {
+        const input = document.getElementById("color-intensity");
+        const value = document.getElementById("color-value");
+        const content = document.getElementById("page-content");
+
+        if (!input || !value || !content) return;
+
+        const updateIntensity = () => {
+          const current = Number(input.value);
+          const brightness = current >= 1 ? 1 : 1.1;
+          const hue = 185 + (current - 0.5) * 120;
+          const saturation = 95;
+          const lightness = 60;
+
+          document.documentElement.style.setProperty("--color-intensity", current.toFixed(1));
+          document.documentElement.style.setProperty("--color-brightness", brightness.toFixed(2));
+          document.documentElement.style.setProperty("--bar-border", `hsl(${hue} ${saturation}% ${lightness}%)`);
+          document.documentElement.style.setProperty("--bar-glow", `hsla(${hue} ${saturation}% ${lightness}% / 0.6)`);
+          document.documentElement.style.setProperty("--bar-shadow", `hsla(${hue} ${saturation}% ${lightness}% / 0.35)`);
+          document.documentElement.style.setProperty("--bar-bg", `rgba(8, 8, 22, ${0.55 + (current - 0.5) * 0.09})`);
+          document.documentElement.style.setProperty("--bar-button-border", `hsla(${hue} ${saturation}% ${lightness}% / 0.8)`);
+          document.documentElement.style.setProperty("--bar-button-bg", `hsla(${hue} ${saturation}% ${lightness}% / 0.15)`);
+          document.documentElement.style.setProperty("--bar-button-color", `hsl(${hue} 90% 80%)`);
+          document.documentElement.style.setProperty("--bar-button-glow", `hsla(${hue} ${saturation}% ${lightness}% / 0.45)`);
+          document.documentElement.style.setProperty("--bar-progress-accent", `hsl(${hue} 90% 90%)`);
+          document.documentElement.style.setProperty("--color-panel-border", `hsl(${hue} 90% 70%)`);
+          document.documentElement.style.setProperty("--color-panel-shadow", `hsla(${hue} 90% 70% / 0.45)`);
+          content.style.filter = `saturate(${current}) brightness(${brightness})`;
+          value.textContent = `${Math.round(current * 100)}%`;
+        };
+
+        input.addEventListener("input", updateIntensity);
+        updateIntensity();
+      })();
+    </script>
+    <script src="player.js"></script>
+    <!-- Derechos Reservados Cyluk - https://github.com/Cyluk-dev/Galaxia -->
+  </body>
+</html>
+
